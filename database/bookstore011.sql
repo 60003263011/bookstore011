@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2020 at 09:07 PM
+-- Generation Time: Mar 11, 2020 at 06:57 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -45,8 +45,9 @@ CREATE TABLE `books` (
 INSERT INTO `books` (`id`, `name`, `price`, `typebooks_id`, `image`, `created_at`, `updated_at`) VALUES
 (1, 'การ์ตูนpanda', '100.00', 2, 'nopic.jpg', '2020-03-02 17:08:29', '2020-03-03 17:08:29'),
 (2, 'สามก๊ก', '1500.00', 1, 'nopic.jpg', '2020-03-02 17:08:29', '2020-03-03 17:08:29'),
-(3, 'บัญชีเบื้องต้น', '500.00', 4, 'nopic.jpg', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 'root', '50.00', 2, 'gWlNyXEwQt.jpg', '2020-03-03 20:07:01', '2020-03-03 20:07:01');
+(3, 'บัญชีเบื้องต้น', '500.00', 4, 'nopic.jpg', '0000-00-00 00:00:00', '2020-03-06 16:10:20'),
+(4, 'root', '50.00', 2, 'gWlNyXEwQt.jpg', '2020-03-03 20:07:01', '2020-03-06 16:19:37'),
+(9, 'root', '50.00', 4, 'nopic.jpg', '2020-03-11 16:01:25', '2020-03-11 16:01:25');
 
 -- --------------------------------------------------------
 
@@ -81,6 +82,25 @@ CREATE TABLE `password_resets` (
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profiles`
+--
+
+CREATE TABLE `profiles` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `tel` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `profiles`
+--
+
+INSERT INTO `profiles` (`id`, `tel`, `status`) VALUES
+(3, '0321312389', NULL);
 
 -- --------------------------------------------------------
 
@@ -128,7 +148,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Pongsatorn Aranonphinit', 'frong@gmail.com', NULL, '$2y$10$O/PQ0F7cRyLFYu72cwPQD.rhYJPSvvNQbiMFBP.rNQStFWjI4HW7u', NULL, '2020-03-03 14:56:01', '2020-03-03 14:56:01');
+(1, 'Pongsatorn Aranonphinit', 'frong@gmail.com', NULL, '$2y$10$O/PQ0F7cRyLFYu72cwPQD.rhYJPSvvNQbiMFBP.rNQStFWjI4HW7u', NULL, '2020-03-03 14:56:01', '2020-03-03 14:56:01'),
+(3, 'rootsss', 'frongnumber7@gmail.com', NULL, '$2y$10$D1yHdPenmcQStByHSSW9SO1CgC8iLWu3JIcaJYKJ0IwGXsK3ijpsm', 'NgHNc1Ev1tprbsTQlRAxJvhbMbKY4J8CbxCoeexQISXK75jMSl5nBOkNlqFB', '2020-03-11 16:45:43', '2020-03-11 17:56:25');
 
 --
 -- Indexes for dumped tables
@@ -154,6 +175,12 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Indexes for table `profiles`
+--
+ALTER TABLE `profiles`
+  ADD KEY `profiles_ibfk_1` (`id`);
+
+--
 -- Indexes for table `typebooks`
 --
 ALTER TABLE `typebooks`
@@ -174,7 +201,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -192,7 +219,7 @@ ALTER TABLE `typebooks`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -203,6 +230,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `books`
   ADD CONSTRAINT `books_typebooks_id_foreign` FOREIGN KEY (`typebooks_id`) REFERENCES `typebooks` (`id`);
+
+--
+-- Constraints for table `profiles`
+--
+ALTER TABLE `profiles`
+  ADD CONSTRAINT `profiles_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

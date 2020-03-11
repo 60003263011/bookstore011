@@ -15,7 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
+    <link href="{{ asset('css/lity.min.css') }}" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -53,9 +53,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('เข่้าระบบ') }}</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('ลงทะเบียน') }}</a>
-                            </li>
+
 
                             @if (Route::has('register'))
                             <li class="nav-item">
@@ -69,11 +67,16 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    <a href="{{url('/profiles/'.Auth::user()->id.'/edit')}}">แก้ไขข้อมูลส่วนตัว</a>
+                                    <a class="dropdown-item" href="{{ url('/admin') }}">สำหรับผู้ดูแลระบบ</a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
@@ -90,6 +93,9 @@
             @yield('content')
         </main>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ asset('js/lity.min.js') }}"></script>
+    <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
     @yield('footer')
 </body>
 </html>
